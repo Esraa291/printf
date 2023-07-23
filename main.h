@@ -22,6 +22,11 @@ typedef struct format specifiers
 
 } fs;
 
+/* Functions to print numbers */
+int print_int(va_list types, char buffer[],
+	int flags, int width, int precision, int size);
+
+
 /*Prototyoes*/
 
 /*functions to get output on screen*/
