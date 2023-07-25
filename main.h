@@ -15,31 +15,27 @@
  * @ch: the character representing the specifier
  * @f: function pointer to suitable 
  */
-typedef struct format specifiers
+typedef struct format_specifiers
 {
 	char ch;
-	int (f*)(va_list)
+	int (*f)();
 
-} fs;
-
-/* Functions to print numbers */
-int print_int(va_list types, char buffer[],
-	int flags, int width, int precision, int size);
-
+} form_spec;
 
 /*Prototyoes*/
 
-/*functions to get output on screen*/
+/*functions for stdout*/
 int _putchar(char c);
 
-/*printf*/
-_printf(const char *format, ...);
+/*printing call*/
+int _printf(const char *format, ...);
 
 /*called functions*/
-_print_char(va_list ap);
-_print_str(va_list ap);
+int print_char(va_list ap);
+int print_str(va_list ap);
 
 /*Other helful functions*/
 int _strlen(char *s);
 char *_strncpy(char *dest, char *src, int n);
+
 #endif
