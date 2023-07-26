@@ -14,7 +14,8 @@ int _printf(const char *format, ...)
 	int len = 0;
 	form_spec fs[] = {
 		{'c', print_char}, {'s', print_str}
-		, {'R', print_rot13}, {'\0', NULL}
+		, {'r', print_rev}, {'R', print_rot13
+		}, {'\0', NULL}
 	};
 	va_start(ap, format);
 

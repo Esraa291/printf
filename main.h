@@ -33,6 +33,7 @@ int _printf(const char *format, ...);
 /*called functions*/
 int print_char(va_list ap);
 int print_str(va_list ap);
+int print_rev(va_list ap);
 int print_rot13(va_list ap);
 
 /*Other helful functions*/

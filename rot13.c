@@ -11,40 +11,39 @@ int print_rot13(va_list ap)
 {
 	char *str;
 	int i, j, len;
-	char *alph_lower = "abcdefghijklmnopqrstuvwxyz";
-	char *alph_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char *lower = "abcdefghijklmnopqrstuvwxyz";
+	char *upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	str = va_arg(ap, char *);
 	if (str == NULL)
 	{
-		str = "(null)";
-		for (i = 0; i < 6; i++)
+		return (0);
+	}
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
 		{
-			putchar(str[i]);
+			for (j = 0; lower[j] != '\0'; j++)
+			{
+				if (str[i] == lower[j])
+				{
+					if (j > 12)
+						_putchar(lower[j - 13]);
+					else
+						_putchar(lower[j + 13]);
+				}
+				else if (str[i] == upper[j])
+				{
+					if (j > 12)
+						_putchar(upper[j - 13]);
+					else
+						_putchar(upper[j + 13]);
+				}
+			}
 		}
-		return (_strlen(str));
+		else
+			_putchar(str[i]);
 	}
 	len = _strlen(str);
-	for (i = 0; i < len; i++)
-	{
-		for (j = 0; j < 25; j++)
-		{
-			if (str[i] == alph_lower[j])
-			{
-				if (j > 12)
-					_putchar(alph_lower[j - 13]);
-				else
-					_putchar(alph_lower[j + 13]);
-			}
-			else if (str[i] == alph_upper[j])
-			{
-				if (j >= 12)
-					_putchar(alph_upper[j - 13]);
-				else
-					_putchar(alph_upper[j + 13]);
-			}
-
-		}
-	}
 	return (len);
 }
