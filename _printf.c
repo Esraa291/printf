@@ -12,8 +12,7 @@ int _printf(const char *format, ...)
 	va_list ap;
 	int i = 0, j;/*for indexing*/
 	int len = 0;
-	form_spec fs[] =
-	{
+	form_spec fs[] = {
 		{'c', print_char}, {'s', print_str}
 		, {'R', print_rot13}, {'\0', NULL}
 	};
@@ -32,12 +31,17 @@ int _printf(const char *format, ...)
 		else
 		{
 			i++;/*skip % to get to core*/
+			if (format[i] == '%')
+			{
+				_putchar('%');
+				len++;
+				i++;
+				continue;
+			}
 			for (j = 0; fs[j].ch != '\0'; j++)/*calling suitable function*/
 			{
 				if (fs[j].ch == format[i])
-				{
 					len += fs[j].f(ap);
-				}
 			}
 		}
 		i++;
