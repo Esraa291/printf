@@ -18,7 +18,7 @@
 typedef struct format_specifiers
 {
 	char ch;
-	int (*f)();
+	int (*f)(va_list);
 
 } form_spec;
 
@@ -33,6 +33,7 @@ int _printf(const char *format, ...);
 /*called functions*/
 int print_char(va_list ap);
 int print_str(va_list ap);
+int print_rot13(va_list ap);
 
 /*Other helful functions*/
 int _strlen(char *s);

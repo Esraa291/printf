@@ -6,45 +6,43 @@
  *
  * Return: count of args printed in string and -1 on failure.
  */
-int _print(char *format, ...)
+
+int _printf(const char *format, ...)
 {
 	va_list ap;
-	int i, j;/*for indexing*/
+	int i = 0, j;/*for indexing*/
 	int len = 0;
 	form_spec fs[] =
 	{
 		{'c', print_char}, {'s', print_str}
-		, {'\0', NULL}
+		, {'R', print_rot13}, {'\0', NULL}
 	};
-
 	va_start(ap, format);
-	if (format == NULL)
+
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
 	while (format[i] != '\0')
 	{
-		if (format[i] != '%')
+		if (format[i] != '%')/*normal char case*/
 		{
 			_putchar(format[i]);
 			len++;
 		}
 		else
 		{
-			while (format[i + 1] !=  ' ' || format[i] != '\0')/*finding specifiers*/
-				i++;/*specifiers are found just before free space char*/
-			if (!(*format))
-				continue;
-			for (j = 0; fs[j].ch; j++)
+			i++;/*skip % to get to core*/
+			for (j = 0; fs[j].ch != '\0'; j++)/*calling suitable function*/
 			{
 				if (fs[j].ch == format[i])
 				{
 					len += fs[j].f(ap);
 				}
 			}
-			continue;
 		}
 		i++;
 	}
+	_putchar('\0');
 	va_end(ap);
 	return (len);
 }
