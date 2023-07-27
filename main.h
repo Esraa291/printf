@@ -43,6 +43,7 @@ struct fmt
  * @ch: the character representing the specifier
  * @f: function pointer to suitable 
  */
+<<<<<<< HEAD
 typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
@@ -75,6 +76,14 @@ int print_hexa_upper(va_list types, char buffer[],
 
 int print_hexa(va_list types, char map_to[],
 char buffer[], int flags, char flag_ch, int width, int precision, int size);
+=======
+typedef struct format_specifiers
+{
+	char ch;
+	int (*f)(va_list);
+
+} form_spec;
+>>>>>>> 27b0586b23540b204711a1ddc3769bf2336117c8
 
 /* Functions to print non printable characters */
 int print_non_printable(va_list types, char buffer[],
@@ -112,20 +121,23 @@ int write_unsgnd(int is_negative, int ind,
 char buffer[],
 	int flags, int width, int precision, int size);
 
-/*functions to get output on screen*/
+/*functions for stdout*/
 int _putchar(char c);
 
-/*printf*/
-_printf(const char *format, ...);
+/*printing call*/
+int _printf(const char *format, ...);
 
 /*called functions*/
-_print_char(va_list ap);
-_print_str(va_list ap);
+int print_char(va_list ap);
+int print_str(va_list ap);
+int print_rev(va_list ap);
+int print_rot13(va_list ap);
 
 /*Other helful functions*/
 int _strlen(char *s);
 char *_strncpy(char *dest, char *src, int n);
 
+<<<<<<< HEAD
 int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
@@ -133,3 +145,6 @@ int is_digit(char);
 long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
 #endif/*MAIN_H*/
+=======
+#endif
+>>>>>>> 27b0586b23540b204711a1ddc3769bf2336117c8

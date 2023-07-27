@@ -1,68 +1,53 @@
 #include "main.h"
+
 /**
- * _printf - prints different datatypes on the screen according to input,
- * and call to get_printf function to call the functions that do the actual printing.
+ * _printf - prints different datatypes on the screen according to input.
  * @format: string determining printed string and data types
  *
- * return: count of args printed in string and -1 on failure.
+ * Return: count of args printed in string and -1 on failure.
  */
-void _print(char *format, ...)
+
+int _printf(const char *format, ...)
 {
 	va_list ap;
-	char str[];
-	int i, j;/*for indexing*/
-	int len, printed_len = 0;/*len for inputed str, prited_len for one printed*/
-
+	int i = 0, j;/*for indexing*/
+	int len = 0;
+	form_spec fs[] = {
+		{'c', print_char}, {'s', print_str}
+		, {'r', print_rev}, {'R', print_rot13
+		}, {'\0', NULL}
+	};
 	va_start(ap, format);
-	if (format == NULL)
+
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	len = _strlen(format);
-	for (i = 0; i < len; i++)
+
+	while (format[i] != '\0')
 	{
-		if (format[i] != '%')
+		if (format[i] != '%')/*normal char case*/
 		{
 			_putchar(format[i]);
-			printed_len++;
+			len++;
 		}
 		else
 		{
-			while (format[i + 1] !=  ' ' || format[i] != '\0')/*finding specifiers*/
+			i++;/*skip % to get to core*/
+			if (format[i] == '%')
 			{
-				i++;/*specifiers are found just before free space char*/
-				
-			}
-			if (!(*format))
+				_putchar('%');
+				len++;
+				i++;
 				continue;
-			str = format + i;
-			printed_len += get_printf(str);/*length printed value is the space on screen it taked not bytes*/
+			}
+			for (j = 0; fs[j].ch != '\0'; j++)/*calling suitable function*/
+			{
+				if (fs[j].ch == format[i])
+					len += fs[j].f(ap);
+			}
 		}
+		i++;
 	}
+	_putchar('\0');
 	va_end(ap);
-	return (printed_len);
-}
-/**
- * get_printf - calls to the right function to print desired value.
- * @ap: pointer to the current argument
- *
- * Return: Sypposedy the count of the characters printed on this process
- */
-
-int (*get_printf(str)(va_list ap))
-{
-	int i;
-	fs[] =
-	{
-		{'c', _print_char}, {'s', print_Str}
-		, {'i', print_int}
-		, {NULL, NULL}
-	};
-
-	for (i = 0; fs[i].ch; i++)
-	{
-		if ( == fs[i].ch)
-		{
-			return (fs[i].f);
-		}
-	}
-	return (NULL);
+	return (len);
 }

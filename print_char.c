@@ -7,11 +7,11 @@
  * Return: 1(basically the count of characters)
  */
 
-int print_ch(va_list ap)
+int print_char(va_list ap)
 {
-	if (ap == NULL || !ap[1] || )
-		return (NULL);
-	if (ap[1] == '\0' || ap[1])
-	_putchar(va_arg(ap, char);
+	char c;
+
+	c = va_arg(ap, int);
+	_putchar(c);
 	return (1);
 }
