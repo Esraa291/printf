@@ -9,16 +9,16 @@
 
 int print_rot13(va_list ap)
 {
-	char *str;
+	char *str, *ptr;
 	int i, j, len;
 	char *lower = "abcdefghijklmnopqrstuvwxyz";
 	char *upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	str = va_arg(ap, char *);
+	len = _strlen(str);
 	if (str == NULL)
-	{
 		return (0);
-	}
+	ptr = malloc(sizeof(char) * (len + 1));
 	for (i = 0; str[i] != '\0'; i++)
 	{
 		if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
@@ -44,6 +44,6 @@ int print_rot13(va_list ap)
 		else
 			_putchar(str[i]);
 	}
-	len = _strlen(str);
+	free(ptr);
 	return (len);
 }
